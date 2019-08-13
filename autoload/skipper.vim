@@ -1,6 +1,10 @@
 let g:skipper_cursor = line('.')
 let g:skipper_key = "s"
 
+if !exists('g:skipper_enabled')
+    let g:skipper_enabled = 1
+endif
+
 function! s:setup()
     call s:setup_range(65, "k")
     call s:setup_range(97, "j")
@@ -23,7 +27,21 @@ endfunction!
 
 call s:setup()
 
+function! skipper#toggle_enable()
+    if g:skipper_enabled
+        let g:skipper_enabled = 0
+        sign unplace *
+    else
+        let g:skipper_enabled = 1
+        :call skipper#skipper()
+    endif
+endfunction
+
 function! skipper#skipper()
+    if !g:skipper_enabled
+        return
+    endif
+
     let new_line = line('.')
 
     if new_line != g:skipper_cursor
