@@ -74,8 +74,10 @@ endfunction
 function! s:show_gutter(line)
     sign unplace *
 
-    let row = line('w0')
-    while row <= line('w$')
+    let row = max([a:line - 26, line('w0')])
+    let end_row = min([a:line + 26, line('w$')])
+
+    while row <= end_row
         let c = s:num_to_key(a:line - row)
 
         if c != ''
