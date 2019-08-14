@@ -2,7 +2,7 @@ let g:skipper_cursor = line('.')
 let g:skipper_key = "s"
 
 if !exists('g:skipper_enabled')
-    let g:skipper_enabled = 1
+    let g:skipper_enabled = 0
 endif
 
 function! s:setup()
