@@ -5,11 +5,6 @@ if !exists('g:skipper_enabled')
     let g:skipper_enabled = 0
 endif
 
-function! s:setup()
-    call s:setup_range(65, "k")
-    call s:setup_range(97, "j")
-endfunction!
-
 function! s:setup_range(start, key)
     let i = a:start
     while i <= a:start + 26
@@ -25,7 +20,11 @@ function! s:setup_range(start, key)
     endwhile
 endfunction!
 
-call s:setup()
+if !exists('g:skipper_loaded')
+    let g:skipper_loaded = 1
+    call s:setup_range(65, "k")
+    call s:setup_range(97, "j")
+endif
 
 function! skipper#toggle_enable()
     if g:skipper_enabled
