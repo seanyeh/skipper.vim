@@ -16,7 +16,7 @@ function! s:setup_range(start, key)
         let c = nr2char(i)
         exe ':sign define '.c.' text='.c
 
-        let num = i + 3 - a:start
+        let num = i - a:start + 1
 
         " e.g. noremap sa 3j^
         exe 'noremap '.g:skipper_key.c.' '.num.a:key.'^'
@@ -57,17 +57,16 @@ function! s:num_to_key(n)
         let start = 97
     endif
 
-    let delta = abs(a:n)
-    if delta <= 2
+    if a:n == 0
         return ''
-    end
+    endif
 
-    let delta -= 3
+    let delta = abs(a:n)
 
-    if delta > 25
+    if delta > 26
         return ''
     else
-        return nr2char(start + delta)
+        return nr2char(start + delta - 1)
     endif
 endfunction
 
